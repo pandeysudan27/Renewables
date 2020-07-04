@@ -56,8 +56,8 @@ model HydroDetailed
   Modelica.Blocks.Interfaces.RealInput u_v "Turbine valve signal" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
+        rotation=0,
+        origin={-120,0})));
   OpenHPL.Waterway.Reservoir reservoir(H_r=H_r)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   OpenHPL.Waterway.Reservoir tailwater(H_r=H_t)
@@ -66,12 +66,11 @@ model HydroDetailed
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={10,10})));
-  Modelica.Blocks.Interfaces.RealOutput P_out1
-                                              "Mechanical Output power"
+  Modelica.Blocks.Interfaces.RealOutput P_out "Mechanical Output power"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,-110})));
+        rotation=0,
+        origin={110,0})));
   OpenHPL.Waterway.Pipe intake(
     H=H_i,
     L=L_i,
@@ -91,12 +90,8 @@ model HydroDetailed
     D_o=Do_p)
     annotation (Placement(transformation(extent={{-64,16},{-44,36}})));
 equation
-  connect(turbine.u_t, u_v)
-    annotation (Line(points={{-30,32},{0,32},{0,120}}, color={0,0,127}));
   connect(turbine.o, tailwater.o) annotation (Line(points={{-20,20},{0,20},{0,10},
           {-1.77636e-15,10}}, color={28,108,200}));
-  connect(turbine.P_out, P_out1) annotation (Line(points={{-30,9},{-30,-54},{0,-54},
-          {0,-110}}, color={0,0,127}));
   connect(reservoir.o, intake.i)
     annotation (Line(points={{-80,70},{-68,70}}, color={28,108,200}));
   connect(surgeTank.i, intake.o)
@@ -105,6 +100,10 @@ equation
           26},{-44,26}}, color={28,108,200}));
   connect(surgeTank.o, penstock.i) annotation (Line(points={{-18,70},{-16,70},{-16,
           40},{-64,40},{-64,26}}, color={28,108,200}));
+  connect(turbine.u_t, u_v) annotation (Line(points={{-30,32},{-30,46},{-82,46},
+          {-82,0},{-120,0}}, color={0,0,127}));
+  connect(turbine.P_out, P_out) annotation (Line(points={{-30,9},{-30,-10},{64,
+          -10},{64,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-74,-66},{84,84}}, fileName="modelica://Renewables/Resources/Images/HydroPlants.svg"),
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),

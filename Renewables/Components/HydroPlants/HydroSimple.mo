@@ -19,11 +19,6 @@ model HydroSimple
     Vdot_n=Vdot_n,
     u_n=u_n)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Modelica.Blocks.Interfaces.RealInput u_v "Turbine valve signal" annotation (
-      Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
   OpenHPL.Waterway.Reservoir reservoir(H_r=H_n)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   OpenHPL.Waterway.Reservoir tailwater(H_r=0) annotation (Placement(
@@ -31,21 +26,20 @@ model HydroSimple
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,-10})));
-  Modelica.Blocks.Interfaces.RealOutput P_out1
-                                              "Mechanical Output power"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,-110})));
+  Modelica.Blocks.Interfaces.RealInput u_t
+    "[Guide vane|nozzle] opening of the turbine"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealOutput P_out "Mechanical Output power"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  connect(turbine.u_t, u_v)
-    annotation (Line(points={{-30,32},{0,32},{0,120}}, color={0,0,127}));
   connect(turbine.i, reservoir.o) annotation (Line(points={{-40,20},{-50,20},{
           -50,50},{-60,50}}, color={28,108,200}));
   connect(turbine.o, tailwater.o) annotation (Line(points={{-20,20},{0,20},{0,
           -10},{20,-10}}, color={28,108,200}));
-  connect(turbine.P_out, P_out1) annotation (Line(points={{-30,9},{-30,-54},{0,
-          -54},{0,-110}}, color={0,0,127}));
+  connect(turbine.u_t, u_t) annotation (Line(points={{-30,32},{-30,72},{-88,72},
+          {-88,0},{-120,0}}, color={0,0,127}));
+  connect(turbine.P_out, P_out) annotation (Line(points={{-30,9},{-28,9},{-28,
+          -64},{64,-64},{64,0},{110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-74,-66},{84,84}}, fileName="modelica://Renewables/Resources/Images/HydroPlants.svg"),
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
