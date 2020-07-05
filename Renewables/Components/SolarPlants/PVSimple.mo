@@ -1,7 +1,6 @@
 within Renewables.Components.SolarPlants;
 model PVSimple "This is a simple PV unit."
 
-
   Modelica.Electrical.Analog.Basic.Ground ground annotation (
     Placement(visible = true, transformation(origin={-32,-38},  extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   parameter PhotoVoltaics.Records.SHARP_NU_S5_E3E moduleData annotation (
@@ -23,9 +22,10 @@ model PVSimple "This is a simple PV unit."
     "A single cell will generated a 1 W power."
     annotation (Placement(transformation(extent={{-26,-76},{-6,-56}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P_out "Value of Real output"
+  Modelica.Blocks.Interfaces.RealOutput P_pv "Solar power output in [Watts]."
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
+
   connect(ground.p, cell.p)
     annotation (Line(points={{-32,-28},{-32,-2}}, color={0,0,255}));
   connect(cell.n, resistor.n) annotation (Line(points={{-32,18},{-24,18},{-24,36},
@@ -34,7 +34,7 @@ equation
           {-32,-28}}, color={0,0,255}));
   connect(cell.variableIrradiance, k) annotation (Line(points={{-44,8},{-72,8},{
           -72,0},{-120,0}}, color={0,0,127}));
-  connect(P_cell.y, P_out) annotation (Line(points={{-5,-66},{48,-66},{48,0},{110,
+  connect(P_cell.y, P_pv) annotation (Line(points={{-5,-66},{48,-66},{48,0},{110,
           0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-74,-66},{84,84}}, fileName="modelica://Renewables/Resources/Images/SolarPlants.svg"),

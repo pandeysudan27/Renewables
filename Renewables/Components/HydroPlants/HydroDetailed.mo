@@ -35,23 +35,16 @@ model HydroDetailed
   parameter Modelica.SIunits.Diameter Do_p = 6 "Diameter of the outlet side of penstock" annotation (
     Dialog(group = "Geometry"));
     //Turbine
-  parameter Boolean ValveCapacity =  true "If checked the guide vane capacity C_v should be specified, otherwise specify the nominal turbine parameters (net head and flow rate)" annotation (
-    Dialog(group = "Turbine nominal parameters"), choices(checkBox = true));
-  parameter Real C_v = 3.7 "Guide vane 'valve capacity'" annotation (
-    Dialog(group = "Turbine nominal parameters", enable = ValveCapacity));
   parameter Modelica.SIunits.Height H_n = 460 "Turbine nominal net head" annotation (
     Dialog(group = "Turbine nominal parameters", enable = not ValveCapacity));
   parameter Modelica.SIunits.VolumeFlowRate Vdot_n = 23.4 "Turbine nominal flow rate" annotation (
     Dialog(group = "Turbine nominal parameters", enable = not ValveCapacity));
-  parameter Real u_n = 0.95 "Turbine guide vane nominal opening, pu" annotation (
-    Dialog(group = "Turbine nominal parameters", enable = not ValveCapacity));
 
   OpenHPL.ElectroMech.Turbines.Turbine turbine(
     ValveCapacity=false,
-    C_v=C_v,
     H_n=H_n,
     Vdot_n=Vdot_n,
-    u_n=u_n)
+    u_n=0.95)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Modelica.Blocks.Interfaces.RealInput u_v "Turbine valve signal" annotation (
       Placement(transformation(
